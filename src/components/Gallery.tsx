@@ -136,33 +136,34 @@ export const MusicDance = () => {
   return (
     <section className="section-padding bg-sidama-cream overflow-hidden">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-20 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
+            className="text-center lg:text-left"
           >
-            <span className="text-sidama-gold font-semibold uppercase tracking-widest text-sm mb-4 block">
+            <span className="text-sidama-gold font-semibold uppercase tracking-widest text-xs sm:text-sm mb-4 block">
               {language === 'en' ? 'Rhythm & Soul' : 'ዜማ እና ነፍስ'}
             </span>
-            <h2 className="text-4xl md:text-6xl font-display text-sidama-earth mb-8">
-              {language === 'en' ? <>The Dance of <br />Reconciliation</> : <>የእርቅ <br />ዳንስ</>}
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-display text-sidama-earth mb-6 md:mb-8">
+              {language === 'en' ? <>The Dance of <br className="hidden sm:block" />Reconciliation</> : <>የእርቅ <br />ዳንስ</>}
             </h2>
-            <p className="text-lg text-sidama-earth/70 leading-relaxed mb-8">
+            <p className="text-base sm:text-lg text-sidama-earth/70 leading-relaxed mb-8">
               {language === 'en' 
                 ? 'Sidama music is deeply rhythmic, often accompanied by traditional instruments like the \'Dibe\' (drum) and \'Krar\'. The dances are energetic and communal, particularly during Fichee-Chambalaalla, where the \'Halle\' dance symbolizes unity and the joy of a new beginning.'
                 : 'የሲዳማ ሙዚቃ ጥልቅ ምት ያለው ሲሆን ብዙውን ጊዜ እንደ \'ዲቤ\' (ከበሮ) እና \'ክራር\' ባሉ ባህላዊ መሳሪያዎች የታጀበ ነው። ዳንሶቹ ጉልበት ያላቸው እና የጋራ ናቸው፣ በተለይም በፊቼ ጫምባላላ ወቅት የ\'ሃሌ\' ዳንስ አንድነትን እና የአዲስ ጅምር ደስታን ያሳያል።'}
             </p>
-            <div className="space-y-6">
-              <div className="flex gap-6 p-6 bg-white rounded-2xl shadow-sm border border-sidama-earth/5">
+            <div className="space-y-4 sm:space-y-6 max-w-md mx-auto lg:mx-0">
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 p-4 sm:p-6 bg-white rounded-2xl shadow-sm border border-sidama-earth/5 items-center sm:items-start text-center sm:text-left">
                 <div className="w-12 h-12 rounded-full bg-sidama-gold/10 flex items-center justify-center flex-shrink-0">
                   <PlayCircle className={`text-sidama-gold ${isPlaying ? 'animate-pulse' : ''}`} />
                 </div>
                 <div>
-                  <h4 className="font-serif text-xl mb-1">
+                  <h4 className="font-serif text-lg sm:text-xl mb-1">
                     {language === 'en' ? 'Traditional Halle Dance' : 'ባህላዊ የሃሌ ዳንስ'}
                   </h4>
-                  <p className="text-sm text-sidama-earth/60">
+                  <p className="text-xs sm:text-sm text-sidama-earth/60">
                     {language === 'en' ? 'A vibrant communal dance performed during the New Year.' : 'በአዲስ አመት የሚካሄድ ደማቅ የጋራ ዳንስ።'}
                   </p>
                 </div>

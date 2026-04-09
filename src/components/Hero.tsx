@@ -71,14 +71,18 @@ export const Navbar = () => {
         </div>
 
         {/* Mobile Toggle */}
-        <div className="flex items-center space-x-4 md:hidden">
+        <div className="flex items-center space-x-2 sm:space-x-4 md:hidden">
           <button 
             onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
-            className="p-2 hover:bg-sidama-earth/5 rounded-full transition-colors"
+            className="p-2 hover:bg-sidama-earth/5 rounded-full transition-colors active:scale-90"
           >
             {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
           </button>
-          <button className="p-2 text-sidama-earth" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          <button 
+            className="p-2 text-sidama-earth active:scale-90" 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle Menu"
+          >
             {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
           </button>
         </div>
@@ -92,22 +96,32 @@ export const Navbar = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-sidama-earth/40 backdrop-blur-sm z-[-1] md:hidden"
+              className="fixed inset-0 bg-sidama-earth/60 backdrop-blur-md z-[40] md:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
             />
             <motion.div 
-              className="absolute top-full left-0 w-full bg-sidama-cream border-t border-sidama-earth/10 p-8 md:hidden shadow-2xl"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
+              className="fixed top-0 right-0 h-full w-[80%] max-w-sm bg-sidama-cream z-[50] p-8 md:hidden shadow-2xl flex flex-col"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
             >
-              <div className="flex flex-col space-y-6">
+              <div className="flex justify-between items-center mb-12">
+                <span className="text-xl font-display font-bold tracking-tighter text-sidama-earth">
+                  SIDAMA <span className="text-sidama-gold">HERITAGE</span>
+                </span>
+                <button onClick={() => setIsMobileMenuOpen(false)} className="p-2">
+                  <X size={28} />
+                </button>
+              </div>
+
+              <div className="flex flex-col space-y-6 flex-grow">
                 {navLinks.map((link, i) => (
                   <motion.a 
                     key={link.name} 
                     href={link.href} 
-                    className="text-2xl font-serif text-sidama-earth hover:text-sidama-gold transition-colors"
-                    initial={{ opacity: 0, x: -20 }}
+                    className="text-3xl font-serif text-sidama-earth hover:text-sidama-gold transition-colors"
+                    initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: i * 0.1 }}
                     onClick={() => setIsMobileMenuOpen(false)}
@@ -115,15 +129,19 @@ export const Navbar = () => {
                     {link.name}
                   </motion.a>
                 ))}
-                <div className="flex items-center justify-between pt-8 border-t border-sidama-earth/10">
-                  <button 
-                    onClick={() => setLanguage(language === 'en' ? 'am' : 'en')} 
-                    className="flex items-center gap-3 text-sidama-earth font-medium"
-                  >
-                    <Globe size={20} className="text-sidama-gold" />
-                    <span>{language === 'en' ? 'Amharic' : 'English'}</span>
-                  </button>
-                </div>
+              </div>
+
+              <div className="pt-8 border-t border-sidama-earth/10">
+                <button 
+                  onClick={() => {
+                    setLanguage(language === 'en' ? 'am' : 'en');
+                    setIsMobileMenuOpen(false);
+                  }} 
+                  className="flex items-center gap-3 text-sidama-earth font-medium text-lg"
+                >
+                  <Globe size={24} className="text-sidama-gold" />
+                  <span>{language === 'en' ? 'Switch to Amharic' : 'ወደ እንግሊዝኛ ቀይር'}</span>
+                </button>
               </div>
             </motion.div>
           </>

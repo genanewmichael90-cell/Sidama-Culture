@@ -31,7 +31,7 @@ export default function App() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2500);
+    }, 20000); // 20s fallback
     return () => clearTimeout(timer);
   }, []);
 
@@ -47,7 +47,7 @@ export default function App() {
     <AppContext.Provider value={{ language, setLanguage, theme, setTheme }}>
       <div className="min-h-screen selection:bg-sidama-gold selection:text-white transition-colors duration-500">
         <AnimatePresence>
-          {loading && <LoadingScreen />}
+          {loading && <LoadingScreen onComplete={() => setLoading(false)} />}
         </AnimatePresence>
 
         {!loading && (

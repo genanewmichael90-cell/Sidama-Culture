@@ -22,26 +22,26 @@ export const Timeline = () => {
           {/* Vertical Line */}
           <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-[1px] bg-white/10 hidden md:block" />
 
-          <div className="space-y-20">
+          <div className="space-y-12 md:space-y-20">
             {SIDAMA_CULTURE_DATA.timeline.map((item, i) => (
               <motion.div
                 key={item.year}
-                className={`flex flex-col md:flex-row items-center gap-8 md:gap-0 ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+                className={`flex flex-col md:flex-row items-center gap-6 md:gap-0 ${i % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
               >
-                <div className="flex-1 text-center md:text-left px-10">
-                  <div className={`flex flex-col ${i % 2 === 0 ? 'md:items-start' : 'md:items-end'}`}>
-                    <span className="text-4xl sm:text-5xl md:text-7xl font-display text-sidama-gold mb-4 opacity-50">{item.year}</span>
-                    <p className={`text-lg text-white/70 max-w-md ${i % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
+                <div className="flex-1 text-center md:text-left px-6 sm:px-10">
+                  <div className={`flex flex-col items-center ${i % 2 === 0 ? 'md:items-start' : 'md:items-end'}`}>
+                    <span className="text-4xl sm:text-5xl md:text-7xl font-display text-sidama-gold mb-2 md:mb-4 opacity-50">{item.year}</span>
+                    <p className={`text-base sm:text-lg text-white/70 max-w-md ${i % 2 === 0 ? 'md:text-left' : 'md:text-right'} text-center md:text-left`}>
                       {item[language]}
                     </p>
                   </div>
                 </div>
                 
-                <div className="relative z-10 w-12 h-12 rounded-full bg-sidama-gold border-4 border-sidama-earth flex items-center justify-center shadow-xl">
+                <div className="relative z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-sidama-gold border-4 border-sidama-earth flex items-center justify-center shadow-xl shrink-0">
                   <div className="w-2 h-2 rounded-full bg-white" />
                 </div>
                 
@@ -106,27 +106,43 @@ export const Footer = () => {
   );
 };
 
-export const LoadingScreen = () => {
+export const LoadingScreen = ({ onComplete }: { onComplete?: () => void }) => {
+  const { language } = useApp();
   return (
     <motion.div 
-      className="fixed inset-0 z-[200] bg-sidama-cream flex flex-col items-center justify-center"
+      className="fixed inset-0 z-[200] bg-black flex flex-col items-center justify-center overflow-hidden"
       exit={{ opacity: 0, transition: { duration: 1, ease: "easeInOut" } }}
     >
-      <motion.div
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
-        className="text-4xl font-display font-bold tracking-tighter text-sidama-earth mb-8"
+      <video 
+        autoPlay 
+        muted 
+        playsInline 
+        webkit-playsinline="true"
+        className="absolute inset-0 w-full h-full object-cover opacity-50"
+        onEnded={onComplete}
       >
-        SIDAMA <span className="text-sidama-gold">HERITAGE</span>
-      </motion.div>
-      <div className="w-48 h-[1px] bg-sidama-earth/10 relative overflow-hidden">
-        <motion.div 
-          className="absolute inset-0 bg-sidama-gold"
-          initial={{ x: "-100%" }}
-          animate={{ x: "100%" }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        />
+        <source src="https://image2url.com/r2/default/videos/1775748754876-0439bf1f-9300-4f21-9bc9-728a638719b0.mp4" type="video/mp4" />
+      </video>
+      
+      <div className="relative z-10 flex flex-col items-center px-6 text-center">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, repeat: Infinity, repeatType: "reverse" }}
+          className="text-4xl sm:text-5xl md:text-7xl font-display font-bold tracking-tighter text-white mb-8"
+        >
+          SIDAMA <span className="text-sidama-gold">HERITAGE</span>
+        </motion.div>
+        
+        <motion.button
+          onClick={onComplete}
+          className="px-10 py-4 bg-white/10 backdrop-blur-md border border-white/20 text-white rounded-full text-sm font-medium hover:bg-white/20 transition-all mt-8 active:scale-95 min-w-[140px]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 2 }}
+        >
+          {language === 'en' ? 'Skip Intro' : 'መግቢያውን እለፍ'}
+        </motion.button>
       </div>
     </motion.div>
   );
